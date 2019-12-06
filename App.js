@@ -7,18 +7,17 @@
  */
 
 import React from 'react';
-import {View} from 'react-native';
+import {View, SafeAreaView, ScrollView} from 'react-native';
 import ExampleOne from './components/Table';
-
 class App extends React.Component {
   render() {
     return (
-      <View>
-        <ExampleOne />
-      </View>
+      <SafeAreaView>
+        <ScrollView>
+          <ExampleOne />
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
-
-
 export default App;
