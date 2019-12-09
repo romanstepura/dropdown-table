@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {TouchableOpacity, Text, StyleSheet, Picker} from 'react-native';
+import {TouchableOpacity, View, StyleSheet,Text, Picker} from 'react-native';
 
 export default class Dropdown extends Component {
   constructor(props) {
@@ -7,7 +7,7 @@ export default class Dropdown extends Component {
 
     this.state = {
       currs: [],
-      currency: 9,
+      currency: 0,
       isLoading: true,
       callback: this.props.onChange,
     };
@@ -41,26 +41,62 @@ export default class Dropdown extends Component {
 
   onSelect(val) {
     this.props.onChange(val);
+    this.setState({
+      currency: val,
+    })
   }
+
 
   render() {
     if (!this.state.isLoading) {
       return (
-        <Picker
-          selectedValue={this.state.currency}
-          style={{height: 50, width: 100}}
-          onValueChange={(itemValue, itemIndex) => this.onSelect(itemValue)}>
-          {this.state.currs.map(number => (
-            <Picker.Item
-              label={number.name}
-              value={number.id}
-              key={number.id}
-            />
-          ))}
-        </Picker>
+        <View  style={styles.PikerWrap}>
+          <Picker  
+            style={styles.stylePicker} 
+            selectedValue={this.state.currency}
+            onValueChange={(itemValue, itemIndex) => this.onSelect(itemValue)}>
+             <Picker.Item
+                label={'Вкажіть відділення'}
+              
+              />   
+            {this.state.currs.map(number => (
+              <Picker.Item 
+                label={number.name}
+                value={number.id}
+                key={number.id}
+              />
+            ))}
+            
+          </Picker>
+        </View>
       );
     } else {
-      return null;
+      return (
+           <View  style={styles.PikerWrap}>
+              <Picker 
+               style={styles.stylePicker} 
+              selectedValue={this.state.currency}
+              onValueChange={(itemValue, itemIndex) => this.onSelect(itemValue)}>
+            
+            <Picker.Item 
+                label={'Загрузка...'}
+              
+              />
+            </Picker>
+        </View>
+      );
     }
   }
 }
+const styles = StyleSheet.create({
+  PikerWrap:{
+  borderStyle:'solid',
+  borderWidth: 1, 
+  borderColor:'blue',
+  paddingLeft: 15,
+
+  },
+  stylePicker:{
+    flex: 1,
+    },
+})
