@@ -7,9 +7,9 @@
  */
 
 import React from 'react';
-import {View, SafeAreaView, ScrollView, Picker, Alert} from 'react-native';
-import Table1 from './components/Table';
+import {SafeAreaView, ScrollView} from 'react-native';
 import Dropdown from './components/dropdown';
+import Table from './components/Table2';
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +31,7 @@ class App extends React.Component {
               this.renderCurr(val);
             }}
           />
-          <Table1 index={this.state.index} />
+          <Table index={this.state.index} />
         </ScrollView>
       </SafeAreaView>
     );

@@ -41,6 +41,9 @@ export default class Dropdown extends Component {
 
   onSelect(val) {
     this.props.onChange(val);
+    this.setState({
+      currency: val,
+    });
   }
 
   render() {

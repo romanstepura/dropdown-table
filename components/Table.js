@@ -47,11 +47,12 @@ export default class Table1 extends Component {
         tableRow_.push(item.sal);
 
         table_.push(tableRow_);
+        console.log(table_);
       }
 
       this.setState({
         isLoading: false,
-        tableData: table_,
+        currencies: table_,
       });
     } catch (err) {
       console.log('Error fetching data-----------', err);
@@ -66,12 +67,12 @@ export default class Table1 extends Component {
     };
 
     for (let item of list) {
-      if (item.currCode == curr) {
-        if (item.type == 'buy') {
+      if (item.currCode === curr) {
+        if (item.type === 'buy') {
           obj.buy = item.rate;
         }
 
-        if (item.type == 'sal') {
+        if (item.type === 'sal') {
           obj.buy = item.rate;
         }
       }
@@ -102,6 +103,7 @@ export default class Table1 extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    //display: 'none',
     flex: 1,
     padding: 10,
     paddingTop: 30,
