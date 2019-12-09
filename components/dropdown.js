@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {TouchableOpacity, View, StyleSheet,Text, Picker} from 'react-native';
+import {TouchableOpacity, Text, StyleSheet, Picker} from 'react-native';
 
 export default class Dropdown extends Component {
   constructor(props) {
@@ -7,7 +7,7 @@ export default class Dropdown extends Component {
 
     this.state = {
       currs: [],
-      currency: 0,
+      currency: 9,
       isLoading: true,
       callback: this.props.onChange,
     };
@@ -51,36 +51,36 @@ export default class Dropdown extends Component {
     if (!this.state.isLoading) {
       return (
         <View  style={styles.PikerWrap}>
-          <Picker  
-            style={styles.stylePicker} 
+          <Picker
+            style={styles.stylePicker}
             selectedValue={this.state.currency}
             onValueChange={(itemValue, itemIndex) => this.onSelect(itemValue)}>
              <Picker.Item
                 label={'Вкажіть відділення'}
-              
-              />   
+
+              />
             {this.state.currs.map(number => (
-              <Picker.Item 
+              <Picker.Item
                 label={number.name}
                 value={number.id}
                 key={number.id}
               />
             ))}
-            
+
           </Picker>
         </View>
       );
     } else {
       return (
            <View  style={styles.PikerWrap}>
-              <Picker 
-               style={styles.stylePicker} 
+              <Picker
+               style={styles.stylePicker}
               selectedValue={this.state.currency}
               onValueChange={(itemValue, itemIndex) => this.onSelect(itemValue)}>
-            
-            <Picker.Item 
+
+            <Picker.Item
                 label={'Загрузка...'}
-              
+
               />
             </Picker>
         </View>
@@ -91,7 +91,7 @@ export default class Dropdown extends Component {
 const styles = StyleSheet.create({
   PikerWrap:{
   borderStyle:'solid',
-  borderWidth: 1, 
+  borderWidth: 1,
   borderColor:'blue',
   paddingLeft: 15,
 
