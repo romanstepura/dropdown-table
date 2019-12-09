@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, View,Alert} from 'react-native';
+import {StyleSheet, View, Alert} from 'react-native';
 import {Table, Row, Rows} from 'react-native-table-component';
 
 export default class Table1 extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading:true,
+      isLoading: true,
       tableHead: ['Купівля', 'Продаж'],
       tableData: [
         ['1', '2', '3'],
@@ -21,7 +21,8 @@ export default class Table1 extends Component {
     //Have a try and catch block for catching errors.
     try {
       const response = await fetch(
-        'https://money24.com.ua/rates/get/commercial/'+this.props.index.toString(),
+        'https://money24.com.ua/rates/get/commercial/' +
+          this.props.index.toString(),
         {
           method: 'POST',
           headers: {
@@ -34,80 +35,67 @@ export default class Table1 extends Component {
       );
 
       const json = await response.json();
-var table_=[];
-console.log(json.results);
-var currs=['usd','eur','huf']
-    for(let curr of currs)
-    {
-       var item= this.getArray(json.results,curr);
+      const table_ = [];
+      console.log(json.results);
+      const currs = ['usd', 'eur', 'huf'];
+      for (let curr of currs) {
+        const item = this.getArray(json.results, curr);
 
-      var tableRow_=[];
-      tableRow_.push(item.buy);
-      tableRow_.push(curr);
-      tableRow_.push(item.sal);
+        const tableRow_ = [];
+        tableRow_.push(item.buy);
+        tableRow_.push(curr);
+        tableRow_.push(item.sal);
 
-      table_.push(tableRow_);
-    }
-
+        table_.push(tableRow_);
+      }
 
       this.setState({
         isLoading: false,
-        tableData: table_
-
+        tableData: table_,
       });
-
-
-    } catch(err) {
-      console.log("Error fetching data-----------", err);
+    } catch (err) {
+      console.log('Error fetching data-----------', err);
     }
   }
 
-  getArray(list, curr)
-  {
-    var obj={
-      sal:0,
-      buy:0,
-      currCode:curr
-    }
+  getArray(list, curr) {
+    const obj = {
+      sal: 0,
+      buy: 0,
+      currCode: curr,
+    };
 
-    for(let item of list)
-    {
-      if(item.currCode==curr)
-      {
-        if(item.type=='buy')
-          {
-            obj.buy=item.rate;
-          }
+    for (let item of list) {
+      if (item.currCode == curr) {
+        if (item.type == 'buy') {
+          obj.buy = item.rate;
+        }
 
-        if(item.type=='sal')
-          {
-            obj.buy=item.rate;
-          }
+        if (item.type == 'sal') {
+          obj.buy = item.rate;
+        }
       }
     }
     return obj;
   }
 
   render() {
-
-console.log(this.state.isLoading)
+    console.log(this.state.isLoading);
     if (!this.state.isLoading) {
-    return (
-
-      <View style={styles.container}>
-        <Table>
-          <Row
-            data={this.state.tableHead}
-            style={styles.head}
-            textStyle={styles.text}
-          />
-          <Rows data={this.state.tableData} textStyle={styles.text}/>
-        </Table>
-      </View>
-
-    ); } else{
-      return  null;
-
+      return (
+        <View style={styles.container}>
+          <Table>
+            <Row
+              data={this.state.tableHead}
+              style={styles.head}
+              textStyle={styles.text}
+            />
+            <Rows data={this.state.tableData} textStyle={styles.text} />
+          </Table>
+        </View>
+      );
+    } else {
+      return null;
     }
   }
 }
