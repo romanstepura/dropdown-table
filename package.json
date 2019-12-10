@@ -10,9 +10,16 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "from": "^0.1.7",
+    "import": "^0.0.6",
     "react": "16.9.0",
     "react-native": "0.61.5",
-    "react-native-searchable-dropdown": "^1.1.1"
+    "react-native-gesture-handler": "^1.5.2",
+    "react-native-reanimated": "^1.4.0",
+    "react-native-screens": "^2.0.0-alpha.17",
+    "react-native-searchable-dropdown": "^1.1.1",
+    "react-navigation": "^4.0.10",
+    "react-navigation-drawer": "^2.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",

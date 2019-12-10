@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Alert, Text, } from 'react-native';
+import {StyleSheet, View, Alert, Text, Image} from 'react-native';
 import {Icon} from 'native-base';
 
 export default class Table extends Component {
@@ -10,13 +10,23 @@ export default class Table extends Component {
     };
   }
   renderRow(tableData) {
+    let iconUrl = require(`../flags/${'usd'}.png`);
+    console.log(tableData.currCode.toString());
     return (
       <View style={styles.containerRow}>
         <View style={styles.rowCell}>
           <Text style={styles.rowText}>{tableData.buy}</Text>
         </View>
         <View style={styles.rowCell}>
-          <Text style={styles.rowTextCurrency}>{tableData.currCode}</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingBottom: 15,
+            }}>
+            <Text style={styles.rowTextCurrency}>{tableData.currCode}</Text>
+            <Image style={{height: 30, width: 30}} source={iconUrl} />
+          </View>
         </View>
         <View style={styles.rowCell}>
           <Text style={styles.rowText}>{tableData.sal}</Text>
@@ -43,8 +53,7 @@ export default class Table extends Component {
 
       const json = await response.json();
       const table_ = [];
-      console.log(json.results);
-      const currs = ['usd', 'eur', 'huf'];
+      const currs = ['usd'];
       for (let curr of currs) {
         const item = this.getArray(json.results, curr);
 
@@ -52,7 +61,6 @@ export default class Table extends Component {
         table_.push(item);
 
         //table_.push(tableRow_);
-        console.log(table_);
       }
 
       this.setState({
@@ -116,6 +124,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 15,
     paddingRight: 15,
+    marginTop: 30,
   },
   containerRow: {
     flex: 1,
@@ -124,22 +133,22 @@ const styles = StyleSheet.create({
   },
   rowCell: {
     flex: 1,
+    borderBottomWidth: 2,
+    borderColor: 'yellow',
   },
   rowHeadLeft: {
     fontSize: 20,
     textAlign: 'left',
     paddingLeft: 30,
     paddingBottom: 15,
-    borderBottomWidth: 2,
-    borderColor: 'yellow',
+    paddingTop: 15,
   },
   rowHeadRight: {
     fontSize: 20,
     textAlign: 'right',
     paddingRight: 30,
     paddingBottom: 15,
-    borderBottomWidth: 2,
-    borderColor: 'yellow',
+    paddingTop: 15,
   },
   rowText: {
     flex: 1,
@@ -148,8 +157,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingTop: 5,
     paddingBottom: 5,
-    borderBottomWidth: 2,
-    borderColor: 'yellow',
   },
   rowTextCurrency: {
     flex: 1,
@@ -157,7 +164,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingTop: 5,
     paddingBottom: 5,
-    borderBottomWidth: 2,
-    borderColor: 'yellow',
   },
 });

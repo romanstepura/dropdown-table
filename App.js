@@ -10,6 +10,8 @@ import React from 'react';
 import {SafeAreaView, ScrollView} from 'react-native';
 import Dropdown from './components/dropdown';
 import Table from './components/Table2';
+import {DrawerNavigation} from './components/Navigation'
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -24,16 +26,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <SafeAreaView>
-        <ScrollView>
-          <Dropdown
-            onChange={val => {
-              this.renderCurr(val);
-            }}
-          />
-          <Table index={this.state.index} />
-        </ScrollView>
-      </SafeAreaView>
+      <DrawerNavigation />
     );
   }
 }

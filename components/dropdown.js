@@ -7,7 +7,7 @@ export default class Dropdown extends Component {
 
     this.state = {
       currs: [],
-      currency: 9,
+      currency: 0,
       isLoading: true,
       callback: this.props.onChange,
     };
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'blue',
     paddingLeft: 15,
+
   },
   stylePicker: {
     flex: 1,
