@@ -10,7 +10,7 @@ export default class Table extends Component {
     };
   }
   renderRow(tableData) {
-    let iconUrl = require(`../flags/${'usd'}.png`);
+     let iconUrl = require(`../flags/${'usd'}.png`);
     console.log(tableData.currCode.toString());
     return (
       <View style={styles.containerRow}>
