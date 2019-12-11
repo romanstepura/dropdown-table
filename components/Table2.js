@@ -10,7 +10,13 @@ export default class Table extends Component {
     };
   }
   renderRow(tableData) {
-     let iconUrl ='usd';
+    let iconName = '' + tableData.currCode.toString();
+    // const iconUrl = url => {
+    //     //   iconName = url.currCode.toString()
+    //     //   return iconName;
+    //     // };
+    //iconUrl(tableData);
+    console.log(iconName);
     console.log(tableData.currCode.toString());
     return (
       <View style={styles.containerRow}>
@@ -25,7 +31,10 @@ export default class Table extends Component {
               paddingBottom: 15,
             }}>
             <Text style={styles.rowTextCurrency}>{tableData.currCode}</Text>
-            <Image style={{height: 30, width: 30}} source={ require(`../flags/${iconUrl}.png`)} />
+            <Image
+              style={{height: 30, width: 30}}
+              //source={{uri: 'as'}}
+            />
           </View>
         </View>
         <View style={styles.rowCell}>
@@ -34,7 +43,7 @@ export default class Table extends Component {
       </View>
     );
   }
-  async componentDidUpdate() {
+  async componentWillReceiveProps() {
     //Have a try and catch block for catching errors.
     try {
       const response = await fetch(
@@ -54,7 +63,6 @@ export default class Table extends Component {
       const json = await response.json();
       const table_ = [];
       const currs = ['usd'];
-  
       for (let curr of currs) {
         const item = this.getArray(json.results, curr);
 
