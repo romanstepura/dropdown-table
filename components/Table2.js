@@ -10,7 +10,7 @@ export default class Table extends Component {
     };
   }
   renderRow(tableData) {
-     let iconUrl = require(`../flags/${'usd'}.png`);
+     let iconUrl ='usd';
     console.log(tableData.currCode.toString());
     return (
       <View style={styles.containerRow}>
@@ -25,7 +25,7 @@ export default class Table extends Component {
               paddingBottom: 15,
             }}>
             <Text style={styles.rowTextCurrency}>{tableData.currCode}</Text>
-            <Image style={{height: 30, width: 30}} source={iconUrl} />
+            <Image style={{height: 30, width: 30}} source={ require(`../flags/${iconUrl}.png`)} />
           </View>
         </View>
         <View style={styles.rowCell}>
@@ -54,6 +54,7 @@ export default class Table extends Component {
       const json = await response.json();
       const table_ = [];
       const currs = ['usd'];
+  
       for (let curr of currs) {
         const item = this.getArray(json.results, curr);
 
