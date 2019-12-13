@@ -5,8 +5,8 @@ import { LoadDropdown, UpdateTable } from '../store/actions/currencies';
 
 export const Dropdown2 = ({ onChange }) => {
   //const [isLoading, setIsLoading] = useState(true);
-  const [currs, setCurrs] = useState([]);
-  const [currency, setCurrency] = useState(0);
+  //const [currs, setCurrs] = useState([]);
+  //const [currency, setCurrency] = useState(0);
 
   const dispatch = useDispatch();
   async function getDepartments() {
@@ -34,6 +34,9 @@ export const Dropdown2 = ({ onChange }) => {
   }, []);
   const departments = useSelector(state => state.currency.departments);
 
+  const selectedDepartment = useSelector(
+    state => state.currency.selectedDepartment,
+  );
   console.log(departments);
   const onSelect = val => {
     dispatch(UpdateTable(val));
@@ -42,8 +45,8 @@ export const Dropdown2 = ({ onChange }) => {
     <View style={styles.PikerWrap}>
       <Picker
         style={styles.stylePicker}
-        selectedValue={currency}
-        onValueChange={(itemValue, itemIndex) => onSelect(itemValue)}>
+        selectedValue={selectedDepartment}
+        onValueChange={itemValue => onSelect(itemValue)}>
         <Picker.Item label={'Вкажіть відділення'} />
         {departments.map(number => (
           <Picker.Item label={number.name} value={number.id} key={number.id} />
