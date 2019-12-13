@@ -8,7 +8,7 @@ export const Table3 = ({ index }) => {
   function renderRow(tableData) {
     let iconName = 'usd';
     return (
-      <View style={styles.containerRow}>
+      <View style={styles.containerRow} key={tableData.id}>
         <View style={styles.rowCell}>
           <Text style={styles.rowText}>{tableData.buy}</Text>
         </View>
@@ -19,7 +19,7 @@ export const Table3 = ({ index }) => {
               alignItems: 'center',
               paddingBottom: 15,
             }}>
-            <Text style={styles.rowTextCurrency}>
+            <Text  style={styles.rowTextCurrency}>
               {tableData.currCode.toUpperCase()}
             </Text>
             <Image
@@ -87,13 +87,15 @@ export const Table3 = ({ index }) => {
       sal: 0,
       buy: 0,
       currCode: curr,
+      id: '',
     };
+
     for (let item of list) {
       if (item.currCode === curr) {
         if (item.type === 'buy') {
           obj.buy = item.rate;
+          obj.id = item.id;
         }
-
         if (item.type === 'sal') {
           obj.sal = item.rate;
         }
