@@ -34,7 +34,8 @@ class SecondScreen extends Component {
                 this.renderCurr(val);
               }}
             />
-            <Table3 index={this.state.index} />
+
+            <Table3 />
           </ScrollView>
         </SafeAreaView>
       </View>

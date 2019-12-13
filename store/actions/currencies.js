@@ -1,4 +1,4 @@
-import { LOAD_DROPDOWN, UPDATE_TABLE } from '../types';
+import { LOAD_DROPDOWN, UPDATE_TABLE, LOAD_TABLE } from '../types';
 
 export const LoadDropdown = data => {
   return {
@@ -10,5 +10,11 @@ export const UpdateTable = index => {
   return {
     type: UPDATE_TABLE,
     payload: index,
+  };
+};
+export const LoadTable = tableArray => {
+  return {
+    type: LOAD_TABLE,
+    payload: tableArray,
   };
 };

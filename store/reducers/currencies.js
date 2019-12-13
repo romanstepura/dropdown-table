@@ -1,8 +1,8 @@
-import { UPDATE_TABLE, LOAD_DROPDOWN } from '../types';
+import { UPDATE_TABLE, LOAD_DROPDOWN, LOAD_TABLE } from '../types';
 
 const initialState = {
   departments: [],
-  selectedDepartment: 0,
+  selectedDepartment: null,
   currencies: [],
 };
 
@@ -17,6 +17,11 @@ export const currencyDepartmentReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedDepartment: action.payload,
+      };
+    case LOAD_TABLE:
+      return {
+        ...state,
+        currencies: action.payload,
       };
     default:
       return state;

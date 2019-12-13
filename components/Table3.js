@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useSelect } from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { LoadTable } from '../store/actions/currencies';
 export const Table3 = ({ index }) => {
-  const [currencies, setCurrencies] = useState([]);
+  //const [currencies, setCurrencies] = useState([]);
 
   function renderRow(tableData) {
     let iconName = 'usd';
@@ -33,6 +34,7 @@ export const Table3 = ({ index }) => {
       </View>
     );
   }
+  const dispatch = useDispatch();
   async function getTable(indexTable) {
     try {
       const response = await fetch(
@@ -66,7 +68,7 @@ export const Table3 = ({ index }) => {
         table_.push(item);
       }
 
-      setCurrencies(table_);
+      dispatch(LoadTable(table_));
     } catch (err) {
       console.log('Error fetching data-----------', err);
     }
@@ -74,6 +76,7 @@ export const Table3 = ({ index }) => {
   const selectedDepartment = useSelector(
     state => state.currency.selectedDepartment,
   );
+  const currencies = useSelector(state => state.currency.currencies);
 
   useEffect(() => {
     getTable(selectedDepartment);
