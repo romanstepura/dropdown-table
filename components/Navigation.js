@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {SafeAreaView, ScrollView} from 'react-native';
-import {createAppContainer} from 'react-navigation';
-import {DrawerItems, createDrawerNavigator} from 'react-navigation-drawer';
+import React, { Component } from 'react';
+import { SafeAreaView, ScrollView } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { DrawerItems, createDrawerNavigator } from 'react-navigation-drawer';
 import HomePage from '../screens/HomePage';
 import SecondScreen from '../screens/SecondScreen';
 import ThirdScreen from '../screens/ThirdScreen';

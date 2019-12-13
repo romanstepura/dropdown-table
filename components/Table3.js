@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
-export const Table3 = ({index}) => {
+import React, { useState, useEffect, useSelect } from 'react';
+import { StyleSheet, View, Text, Image } from 'react-native';
+import { useSelector } from 'react-redux';
+export const Table3 = ({ index }) => {
   const [currencies, setCurrencies] = useState([]);
 
   function renderRow(tableData) {
@@ -17,9 +18,11 @@ export const Table3 = ({index}) => {
               alignItems: 'center',
               paddingBottom: 15,
             }}>
-            <Text style={styles.rowTextCurrency}>{tableData.currCode}</Text>
+            <Text style={styles.rowTextCurrency}>
+              {tableData.currCode.toUpperCase()}
+            </Text>
             <Image
-              style={{height: 30, width: 30}}
+              style={{ height: 30, width: 30 }}
               source={require(`../flags/${iconName}.png`)}
             />
           </View>
@@ -53,7 +56,7 @@ export const Table3 = ({index}) => {
       json.results.forEach(item => currenciesName(item));
 
       function currenciesName(item) {
-        if (item.type === 'buy') {
+        if (item.type === 'buy' && item.currCode !== 'uah') {
           return currs.push(item.currCode);
         }
       }
@@ -68,10 +71,13 @@ export const Table3 = ({index}) => {
       console.log('Error fetching data-----------', err);
     }
   }
+  const selectedDepartment = useSelector(
+    state => state.currency.selectedDepartment,
+  );
 
   useEffect(() => {
-    getTable(index);
-  }, [index]);
+    getTable(selectedDepartment);
+  }, [selectedDepartment]);
 
   function getArray(list, curr) {
     const obj = {
@@ -102,7 +108,7 @@ export const Table3 = ({index}) => {
           <Text style={styles.rowHeadRight}>Продаж</Text>
         </View>
       </View>
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         {currencies.map(datum => {
           return renderRow(datum);
           // This will render a row for each data element.

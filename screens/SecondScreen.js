@@ -1,27 +1,19 @@
-import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
+import React, { Component } from 'react';
+import { View, Button, SafeAreaView, ScrollView } from 'react-native';
 import Dropdown from './../components/dropdown';
-import Table from './../components/Table2';
-import Table1 from '../components/Table';
+import { Table3 } from '../components/Table3';
 import { Dropdown2 } from '../components/dropdown2';
 
 class SecondScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      index: 9,
+      index: 0,
     };
   }
 
   renderCurr(index) {
-    this.setState({index: index});
+    this.setState({ index: index });
   }
   render() {
     return (
@@ -32,18 +24,17 @@ class SecondScreen extends Component {
         />
         <SafeAreaView>
           <ScrollView>
-            <Dropdown
-              onChange={val => {
-                this.renderCurr(val);
-              }}
-            />
+            {/*<Dropdown*/}
+            {/*  onChange={val => {*/}
+            {/*    this.renderCurr(val);*/}
+            {/*  }}*/}
+            {/*/>*/}
             <Dropdown2
               onChange={val => {
                 this.renderCurr(val);
               }}
             />
-            <Table index={this.state.index} />
-            <Table1 index={this.state.index} />
+            <Table3 index={this.state.index} />
           </ScrollView>
         </SafeAreaView>
       </View>
