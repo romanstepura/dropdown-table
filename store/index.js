@@ -1,8 +1,8 @@
-import { createStore, combineReducers } from 'redux'
-import { postReducer, currenciesDepartmentReducer } from './reducers/currencies'
+import { createStore, combineReducers } from 'redux';
+import { currencyDepartmentReducer } from './reducers/currencies';
 
 const rootReducer = combineReducers({
-  currency: currenciesDepartmentReducer,
-})
+  currency: currencyDepartmentReducer,
+});
 
-export default createStore(rootReducer)
+export default createStore(rootReducer);

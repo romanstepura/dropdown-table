@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Alert, Text, Image} from 'react-native';
 
 export default class Table extends Component {
   constructor(props) {
@@ -8,11 +8,10 @@ export default class Table extends Component {
       currencies: [],
     };
   }
-
   renderRow(tableData) {
-    let iconName = 'usd';
+    let iconName = tableData.currCode.toString();
+    console.log(iconName);
     console.log(tableData.currCode.toString());
-
     return (
       <View style={styles.containerRow}>
         <View style={styles.rowCell}>
@@ -28,7 +27,7 @@ export default class Table extends Component {
             <Text style={styles.rowTextCurrency}>{tableData.currCode}</Text>
             <Image
               style={{height: 30, width: 30}}
-              source={require(`../flags/${iconName}.png`)}
+              //source={{uri: 'as'}}
             />
           </View>
         </View>
@@ -57,22 +56,13 @@ export default class Table extends Component {
 
       const json = await response.json();
       const table_ = [];
-      const currs = [];
-      console.log(json.results);
-
-      json.results.forEach(item => currenciesName(item));
-
-      function currenciesName(item) {
-        if (item.type == 'buy') {
-          return currs.push(item.currCode);
-        }
-      }
-
+      const currs = ['usd'];
       for (let curr of currs) {
         const item = this.getArray(json.results, curr);
+        //const tableRow_ = [];
         table_.push(item);
+        //table_.push(tableRow_);
       }
-
       this.setState({
         isLoading: false,
         currencies: table_,
@@ -93,7 +83,6 @@ export default class Table extends Component {
         if (item.type === 'buy') {
           obj.buy = item.rate;
         }
-
         if (item.type === 'sal') {
           obj.sal = item.rate;
         }

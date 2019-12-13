@@ -1,12 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, Picker, View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Picker, StyleSheet, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { LoadDropdown, UpdateTable } from '../store/actions/currencies';
 
-export const Dropdown2 = ({onChange}) => {
+export const Dropdown2 = ({ onChange }) => {
   //const [isLoading, setIsLoading] = useState(true);
-  const [currs, setCurrs] = useState([]);
-  const [currency, setCurrency] = useState(0);
+  //const [currs, setCurrs] = useState([]);
+  //const [currency, setCurrency] = useState(0);
 
+  const dispatch = useDispatch();
   async function getDepartments() {
     try {
       const response = await fetch(
@@ -22,28 +24,31 @@ export const Dropdown2 = ({onChange}) => {
         },
       );
       const json = await response.json();
-
-      setCurrs(json.results);
+      dispatch(LoadDropdown(json.results));
     } catch (err) {
       console.log('Error fetching data-----------', err);
     }
   }
-
   useEffect(() => {
-    getDepartments();
+    getDepartments().then();
   }, []);
+  const departments = useSelector(state => state.currency.departments);
 
+  const selectedDepartment = useSelector(
+    state => state.currency.selectedDepartment,
+  );
+  console.log(departments);
   const onSelect = val => {
-    onChange(val), setCurrency(val);
+    dispatch(UpdateTable(val));
   };
   return (
     <View style={styles.PikerWrap}>
       <Picker
         style={styles.stylePicker}
-        selectedValue={currency}
-        onValueChange={(itemValue, itemIndex) => onSelect(itemValue)}>
+        selectedValue={selectedDepartment}
+        onValueChange={itemValue => onSelect(itemValue)}>
         <Picker.Item label={'Вкажіть відділення'} />
-        {currs.map(number => (
+        {departments.map(number => (
           <Picker.Item label={number.name} value={number.id} key={number.id} />
         ))}
       </Picker>

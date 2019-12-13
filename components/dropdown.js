@@ -1,15 +1,13 @@
-import React, {Component} from 'react';
-import {TouchableOpacity, Text, StyleSheet, Picker, View} from 'react-native';
-
+import React, { Component } from 'react';
+import { StyleSheet, Picker, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 export default class Dropdown extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       currs: [],
       currency: 0,
       isLoading: true,
-      callback: this.props.onChange,
     };
   }
 
@@ -29,15 +27,17 @@ export default class Dropdown extends Component {
         },
       );
       const json = await response.json();
-      this.setState({
-        isLoading: false,
-        currs: json.results,
-      });
+      this.fillDropdown(json.results);
     } catch (err) {
       console.log('Error fetching data-----------', err);
     }
   }
-
+  fillDropdown(result) {
+    this.setState({
+      isLoading: false,
+      currs: result,
+    });
+  }
   onSelect(val) {
     this.props.onChange(val);
     this.setState({
@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'blue',
     paddingLeft: 15,
-
   },
   stylePicker: {
     flex: 1,
