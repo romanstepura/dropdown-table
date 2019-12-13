@@ -8,7 +8,7 @@ class ThirdScreen extends Component{
                 <Button
         onPress={() => this.props.navigation.toggleDrawer()}
         title=" Click"/>
-                <Text>Hello Main Screen!</Text>
+                <Text>Hello Third    Screen!</Text>
             </View>
         )
     }

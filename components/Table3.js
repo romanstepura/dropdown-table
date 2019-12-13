@@ -1,18 +1,10 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
+export const Table3 = ({index}) => {
+  const [currencies, setCurrencies] = useState([]);
 
-export default class Table extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currencies: [],
-    };
-  }
-
-  renderRow(tableData) {
+  function renderRow(tableData) {
     let iconName = 'usd';
-    console.log(tableData.currCode.toString());
-
     return (
       <View style={styles.containerRow}>
         <View style={styles.rowCell}>
@@ -38,12 +30,10 @@ export default class Table extends Component {
       </View>
     );
   }
-  async componentWillReceiveProps() {
-    //Have a try and catch block for catching errors.
+  async function getTable(indexTable) {
     try {
       const response = await fetch(
-        'https://money24.com.ua/rates/get/commercial/' +
-          this.props.index.toString(),
+        'https://money24.com.ua/rates/get/commercial/' + indexTable.toString(),
         {
           method: 'POST',
           headers: {
@@ -63,26 +53,27 @@ export default class Table extends Component {
       json.results.forEach(item => currenciesName(item));
 
       function currenciesName(item) {
-        if (item.type == 'buy') {
+        if (item.type === 'buy') {
           return currs.push(item.currCode);
         }
       }
 
       for (let curr of currs) {
-        const item = this.getArray(json.results, curr);
+        const item = getArray(json.results, curr);
         table_.push(item);
       }
 
-      this.setState({
-        isLoading: false,
-        currencies: table_,
-      });
+      setCurrencies(table_);
     } catch (err) {
       console.log('Error fetching data-----------', err);
     }
   }
 
-  getArray(list, curr) {
+  useEffect(() => {
+    getTable(index);
+  }, [index]);
+
+  function getArray(list, curr) {
     const obj = {
       sal: 0,
       buy: 0,
@@ -101,33 +92,25 @@ export default class Table extends Component {
     }
     return obj;
   }
-
-  render() {
-    if (!this.state.isLoading) {
-      return (
-        <View style={styles.container}>
-          <View style={styles.containerRow}>
-            <View style={styles.rowCell}>
-              <Text style={styles.rowHeadLeft}>Купівля</Text>
-            </View>
-            <View style={styles.rowCell}>
-              <Text style={styles.rowHeadRight}>Продаж</Text>
-            </View>
-          </View>
-          <View
-            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            {this.state.currencies.map(datum => {
-              return this.renderRow(datum);
-              // This will render a row for each data element.
-            })}
-          </View>
+  return (
+    <View style={styles.container}>
+      <View style={styles.containerRow}>
+        <View style={styles.rowCell}>
+          <Text style={styles.rowHeadLeft}>Купівля</Text>
         </View>
-      );
-    } else {
-      return null;
-    }
-  }
-}
+        <View style={styles.rowCell}>
+          <Text style={styles.rowHeadRight}>Продаж</Text>
+        </View>
+      </View>
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        {currencies.map(datum => {
+          return renderRow(datum);
+          // This will render a row for each data element.
+        })}
+      </View>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -81,7 +81,7 @@ export default class Table1 extends Component {
   }
 
   render() {
-    console.log(this.state.isLoading);
+
     if (!this.state.isLoading) {
       return (
         <View style={styles.container}>
@@ -91,7 +91,7 @@ export default class Table1 extends Component {
               style={styles.head}
               textStyle={styles.text}
             />
-            <Rows data={this.state.tableData} textStyle={styles.text} />
+            <Rows data={this.state.tableData} textStyle={styles.text}  />
           </Table>
         </View>
       );

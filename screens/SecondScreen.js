@@ -8,8 +8,8 @@ import {
   ScrollView,
 } from 'react-native';
 import Dropdown from './../components/dropdown';
-import Table from './../components/Table2';
-import Table1 from '../components/Table';
+import {Dropdown2} from '../components/dropdown2';
+import {Table3} from './../components/Table3';
 
 class SecondScreen extends Component {
   constructor(props) {
@@ -36,8 +36,12 @@ class SecondScreen extends Component {
                 this.renderCurr(val);
               }}
             />
-            <Table index={this.state.index} />
-            <Table1 index={this.state.index} />
+            <Dropdown2
+              onChange={val => {
+                this.renderCurr(val);
+              }}
+            />
+            <Table3 index={this.state.index} />
           </ScrollView>
         </SafeAreaView>
       </View>
