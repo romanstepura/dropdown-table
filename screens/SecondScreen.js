@@ -10,6 +10,7 @@ import {
 import Dropdown from './../components/dropdown';
 import Table from './../components/Table2';
 import Table1 from '../components/Table';
+import { Dropdown2 } from '../components/dropdown2';
 
 class SecondScreen extends Component {
   constructor(props) {
@@ -32,6 +33,11 @@ class SecondScreen extends Component {
         <SafeAreaView>
           <ScrollView>
             <Dropdown
+              onChange={val => {
+                this.renderCurr(val);
+              }}
+            />
+            <Dropdown2
               onChange={val => {
                 this.renderCurr(val);
               }}

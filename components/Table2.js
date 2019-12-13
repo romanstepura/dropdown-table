@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Alert, Text, Image} from 'react-native';
-import {Icon} from 'native-base';
 
 export default class Table extends Component {
   constructor(props) {
@@ -10,12 +9,7 @@ export default class Table extends Component {
     };
   }
   renderRow(tableData) {
-    let iconName = '' + tableData.currCode.toString();
-    // const iconUrl = url => {
-    //     //   iconName = url.currCode.toString()
-    //     //   return iconName;
-    //     // };
-    //iconUrl(tableData);
+    let iconName = tableData.currCode.toString();
     console.log(iconName);
     console.log(tableData.currCode.toString());
     return (
@@ -65,13 +59,10 @@ export default class Table extends Component {
       const currs = ['usd'];
       for (let curr of currs) {
         const item = this.getArray(json.results, curr);
-
         //const tableRow_ = [];
         table_.push(item);
-
         //table_.push(tableRow_);
       }
-
       this.setState({
         isLoading: false,
         currencies: table_,
@@ -92,7 +83,6 @@ export default class Table extends Component {
         if (item.type === 'buy') {
           obj.buy = item.rate;
         }
-
         if (item.type === 'sal') {
           obj.sal = item.rate;
         }
